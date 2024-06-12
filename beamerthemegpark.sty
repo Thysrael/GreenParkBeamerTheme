@@ -42,11 +42,20 @@
 % 另一种代码环境
 \RequirePackage{minted}
 \setminted{
-	tabsize=4,
-	encoding=utf8,
-    bgcolor=lightgray, % 背景
-    % style=emacs % 主题
+  tabsize=4,
+  encoding=utf8,
+  % frame=lines,
+  % bgcolor=lightgray, % 背景
+  % style=emacs % 主题
 }
+
+% 增加一些行距
+\BeforeBeginEnvironment{minted}{\smallskip}
+\AfterEndEnvironment{minted}{\smallskip}
+\BeforeBeginEnvironment{itemize}{\smallskip}
+\AfterEndEnvironment{itemize}{\smallskip}
+\BeforeBeginEnvironment{enumerate}{\smallskip}
+\AfterEndEnvironment{enumerate}{\smallskip}
 
 % 强制页面比例为 16:9 
 \RequirePackage{geometry} % 页面布局包
@@ -58,6 +67,7 @@
 \setlength{\parindent}{2em} % 首行缩进 2 字符
 
 % 字体
+% TODO: 我是不是应该用 overleaf 上有的字体
 \setmainfont{Times New Roman} % 英文字体
 \setCJKmainfont{TsangerJinKai05} % 正文字体
 \setCJKsansfont{Source Han Serif CN} % 标题字体
@@ -66,10 +76,8 @@
 \RequirePackage{amsfonts, amsmath, oldgerm, lmodern, bm} % 数学相关的字体
 \let\songti\relax
 \let\heiti\relax
-\setCJKfamilyfont{songti}[AutoFakeBold = {2.17}]{SimSun}
 \setCJKfamilyfont{heiti}[AutoFakeBold = {2.17}]{Source Han Serif CN}
 \setCJKfamilyfont{hwxingkai}[AutoFakeBold = {2.17}]{STXingkai}
-\newcommand{\songti}{\CJKfamily{songti}}
 \newcommand{\heiti}{\CJKfamily{heiti}}
 \newcommand{\hwxingkai}{\CJKfamily{hwxingkai}}
 
@@ -90,7 +98,6 @@
 \renewcommand{\texttt}[1]{\tikz[baseline=(MeNode.base)]{\node[rounded corners=1.5pt, fill=lightgray](MeNode){#1};}}
 % 链接
 \newcommand{\chref}[2]{\textcolor{airforceblue}{\href{#1}{#2}}}
-\newcommand{\chlink}[1]{\chref{#1}{#1}}
 
 \RequirePackage{graphicx} % 图片插入
 
@@ -336,11 +343,23 @@
 
 % style of subsection presented in the table of contents
 \setbeamertemplate{subsection in toc}{}
-% \setbeamertemplate{subsection in toc}{\footnotesize\hspace{1.2 em}$\blacktriangleright$~\inserttocsubsection}
+% \setbeamertemplate{subsection in toc}{\footnotesize\hspace{1.2 em}\textbullet\space\inserttocsubsection}
 
 % automate subtitle of each frame
 \makeatletter
-\pretocmd\beamer@checkframetitle{\framesubtitle{\thesection \, \secname}}
+% \pretocmd\beamer@checkframetitle{\framesubtitle{\thesection \, \secname}}
+\pretocmd\beamer@checkframetitle{\framesubtitle{
+    \ifx\insertsection\empty
+      \empty
+    \else
+      \insertsection
+      \ifx\insertsubsection\empty
+        \empty
+      \else
+        \space \textbullet \space \insertsubsection
+      \fi
+    \fi
+  }}
 \makeatother
 
 % avoid numbering of frames that are breaked into multiply slides
@@ -349,7 +368,7 @@
 \newcommand{\background}[1]{\setbeamertemplate{background}{\includegraphics[height=\paperheight]{#1}}}
 
 
-% at the begining of section, add table of contents with the current section highlighted
+% section 目录页
 \AtBeginSection[]
 {
   \begingroup
@@ -363,19 +382,33 @@
   \endgroup
 }
 
-% at the beginning of subsection, add subsection title page
+% subsection 目录页
 \AtBeginSubsection[]
 {
   \setbeamertemplate{footline}{}
   \setbeamertemplate{background}{}
-  \begin{frame}{\,}{\thesection \, \secname}
+  \setbeamertemplate{frametitle}{
+    \vspace*{-4.5ex}
+    \begin{beamercolorbox}[leftskip=2cm]{frametitle}
+      \usebeamerfont{frametitle}\insertframetitle
+    \end{beamercolorbox}
+  }
+  \begin{frame}{Section \thesection . \secname}{}
     \fontfamily{ptm}\selectfont
     \centering\textsl{\textbf{\textcolor{sintefblue}{
-          \large Section \thesection.\thesubsection
+          \LARGE Section \thesection.\thesubsection
           \vskip15pt
-          \LARGE \subsecname
+          \huge \subsecname
         }}}
   \end{frame}
+  % 将 frametitle 恢复
+  \setbeamertemplate{frametitle}{%
+    \vspace*{-3.5ex}
+    \begin{beamercolorbox}[leftskip=2cm]{frametitle}%
+      \usebeamerfont{frametitle}\insertframetitle\\
+      \usebeamerfont{framesubtitle}\insertframesubtitle
+    \end{beamercolorbox}
+  }
 }
 
 % centering paragraph statement
@@ -386,22 +419,6 @@
       #1
     \end{column}
   \end{columns}
-}
-
-% about page
-\newcommand{\aboutpage}[2]{
-  \begingroup
-  \setbeamertemplate{footline}{}
-  \themecolor{blue}
-  \begin{frame}[c]{#1}{\,}
-    \centering
-    \begin{minipage}{\textwidth}
-      \usebeamercolor[fg]{normal text}
-      \centering
-      \Large \textsl{\normalsize #2}
-    \end{minipage}
-  \end{frame}
-  \endgroup
 }
 
 % bibliography page
@@ -416,3 +433,6 @@
   \end{frame}
   \endgroup
 }
+
+% TODO: 似乎 ref 计数器有些问题，会显示成页面号
+\setbeamertemplate{caption}[numbered]

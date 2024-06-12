@@ -13,210 +13,265 @@
 
 \maketitle
 
-% 声明页
-\begin{frame}{}
-  “绿园 GreenPark”是由北航六系同学开发的一款非官方的 \LaTeX Beamer 主题，它具有简约现代的设计特点。
+\begin{frame}{声明}
+  “绿园 GreenPark”是由北航六系同学开发的一款非官方的 \LaTeX Beamer 主题，它具有支持中文、简约现代的设计特点。
   
   GreenPark 是基于 \chref{https://www.overleaf.com/latex/templates/sintef-presentation/jhbhdffczpnx}{SINTEF Presentation} 和 \chref{https://github.com/liu-qilong/Beamer-LaTeX-Themes}{Beamer-LaTeX-Themes} 的二次开发，GreenPark 去掉了 SINTEF 的一些 deprecated 的特征，并增加了中文支持。感谢这些开发者高品味和优雅的设计。封面素材来自北航姜海洋同学的摄影作品。背景图片来自北航新闻中心，均已取得相关授权。感谢他们的慷慨。
 
   本主题采用 \chref{https://creativecommons.org/licenses/by/4.0/deed.zh-hans}{CC-BY-4.0}，您可以自由地共享和演绎，只需要给出适当的署名。
 
-  本主题目前已经结束开发\textsl{（其实只是为了在离开北航前留个印迹）}。但是后续或许会继续开发。欢迎提交 issue/pr 。
+  本主题目前已经结束开发\textsl{（其实只是为了在离开北航前留个印迹）}\   。但是后续或许会继续开发。欢迎提交 issue 和 pr 。
 
 \end{frame}
 
-\section{Introduction}
-
-% % \textbf{彩色粗体 ctextbf} \textbf{普通粗体 textbf}，\ctextsl{彩色斜体 ctextsl} \textsl{普通斜体 textsl} ，\cemph{彩色打印文本 emph} \emph{普通打印文本 emph}
-% \textbf{普通粗体 textbf} \ctextbf{彩色粗体 textbf}，\textsl{彩色斜体 textsl} ，\emph{彩色打印文本 emph}
-% 
-% \begin{minted}{python}
-%   def main():
-%   print("Hello, world!");
-%   return 0
-% \end{minted}
-
-\begin{frame}{Beamer for SINTEF slides}{\thesection \, \secname}
-
+\section{使用}
+\begin{frame}{依赖}
   \begin{itemize}
-  \item We assume you can use \LaTeX; if you cannot,
-    \chref{http://en.wikibooks.org/wiki/LaTeX/}{you can learn it here}
-  \item Beamer is one of the most popular and powerful document
-    classes for presentations in \LaTeX
-  \item Beamer has also a detailed
-    \chref{http://www.ctan.org/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf}{user manual}
-  \item Here we will present only the most basic features to get you up to speed
+  \item 构建依赖：\texttt{XeLaTeX} ，\texttt{latexmk} （可选）
+  \item 字体依赖：\texttt{Times New Roman}，\texttt{TsangerJinKai05}， \texttt{Source Han Serif CN}，\texttt{JetBrainsMono Nerd Font Mono}， \texttt{STXingkai}
+  \item 代码高亮依赖：\texttt{pygmentize} （可选）
   \end{itemize}
 
+  请自行找资源完成下载。
 \end{frame}
 
-\begin{frame}{Beamer vs. PowerPoint}
-  Compared to PowerPoint, using \LaTeX\ is better because:
+\begin{frame}[fragile]{构建}
+  使用如下命令即可构建 Beamer 和清空 Beamer :
+  
+  \begin{minted}{shell-session}
+    make
+    make clean
+  \end{minted}
+
+  如果希望加快构建速度，可以安装 \texttt{latexmk} 并使用如下命令：
+
+  \begin{minted}{shell-session}
+    make mk
+  \end{minted}
+
+  但是这种方法会导致报错不明显。
+\end{frame}
+
+\begin{frame}{自定义}
   \begin{itemize}
-  \item It is not What-You-See-Is-What-You-Get, but
-    What-You-\emph{Mean}-Is-What-You-Get:\\
-    you write the content, the computer does the typesetting
-  \item Produces a \texttt{pdf}: no problems with fonts, formulas,
-    program versions
-  \item Easier to keep consistent style, fonts, highlighting, etc.
-  \item Math typesetting in \TeX\ is the best:
-    \begin{equation*}
-      \mathrm{i}\,\hslash\frac{\partial}{\partial t} \Psi(\mathbf{r},t) =
-      -\frac{\hslash^2}{2\,m}\nabla^2\Psi(\mathbf{r},t)
-      + V(\mathbf{r})\Psi(\mathbf{r},t)
-    \end{equation*}
+  \item 使用 \texttt{titlebackground} 和 \texttt{background}  命令可以设置首页图片和后续背景。
+  \item 修改 \chref{file:./gparkcolor.sty}{gparkcolor.sty} 文件可以修改主题颜色，行内样式颜色等。
+  \item 修改 \chref{file:./beamerthemegpark.sty}{beamerthemegpark.sty} 文件可以修改字体，行间距或者其他主题设置。
+  \end{itemize}
 
+  GreenPark 的代码量只有 500 行，并有详细注释。非常容易修改出一套其他大学的 Beamer 。
+  
+\end{frame}
+
+\section{样式}
+\subsection{段内}
+\begin{frame}{字体}
+  本文使用到了多种字体：
+  \begin{itemize}
+  \item 英文字体 \texttt{Times New Roman}
+  \item 正文字体 \texttt{TsangerJinKai05}
+  \item 标题字体 \texttt{Source Han Serif CN}
+  \item 等宽字体 \texttt{JetBrainsMono Nerd Font Mono}
+  \item 手写字体 \texttt{STXingkai}。
   \end{itemize}
 \end{frame}
 
-\section{Editing}
-
-\begin{frame}[fragile]{Selecting the Class}
-  After the last update to the graphic profile, the \texttt{sintef} theme for
-  Beamer has been updated into a full-fledged class.
-  To start working with \texttt{sintefbeamer}, start a \LaTeX\ document with the
-  preamble:
-  \begin{block}{Minimum SINTEF Beamer Document}
-    \begin{lstlisting}[language=TeX]
-      \documentclass{sintefbeamer}
-      \begin{document}
-      \begin{frame}{Hello, world!}
-      \end {frame}
-    \end{document}
-  \end{lstlisting}
-\end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Title page}
-  To set a typical title page, you call some commands in the preamble:
-  \begin{block}{The Commands for the Title Page}
-    \begin{lstlisting}[language=TeX]
-      \title{Sample Title}
-      \subtitle{Sample subtitle}
-      \author{First Author, Second Author}
-      \date{Defaults to today's}
-    \end{lstlisting}
-  \end{block}
-  You can then write out the title page with \verb|\maketitle|.
-
-  You can set a different background image than the default one with the
-  \verb|\titlebackground| command, set before \verb|\maketitle|.
-
-  In the \texttt{backgrounds} folder, you can find a lot of standard backgrounds
-  for SINTEF presentation title pages.
-
-\end{frame}
-
-\begin{frame}[fragile]{Writing a Simple Slide}
-  \framesubtitle{It's really easy!}
-  \begin{itemize}[<+->]
-  \item A typical slide has bulleted lists
-  \item These can be uncovered in sequence
+\begin{frame}{命令}
+  \begin{itemize}
+  \item 粗体：\texttt{textbf} \textbf{普通 bold}，\texttt{ctextbf} \ctextbf{彩色 bold}
+  \item 斜体：\texttt{textsl} \textsl{普通 slant}，\texttt{ctextsl} \ctextsl{彩色 slant}
+  \item 强调：\texttt{emph} \emph{强调 emphasize}
+  \item 链接：\texttt{href} \href{https://thysrael.github.io/}{普通 link}，\texttt{chref} \chref{https://thysrael.github.io/}{彩色 link}
+  \item 代码：\texttt{ttt} \texttt{inline code}
+  \item 公式：\(e^{i\pi} + 1 = 0\)
   \end{itemize}
-  \begin{block}{Code for a Page with an Itemised List}<+->
-    \begin{lstlisting}[language=TeX]
-      \begin{frame}
-        \frametitle{Writing a Simple Slide}
-        \framesubtitle{It's really easy!}
-        \begin{itemize}[<+->]
-        \item A typical slide has bulleted lists
-        \item These can be uncovered in sequence
-        \end{itemize}
-      \end{frame}\end{lstlisting}
-  \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Adding images}
+\begin{frame}{字号}
+  \LaTeX 支持多种字号：
+  
   \begin{columns}
-    \begin{column}{0.7\textwidth}
-      Adding images works like in normal \LaTeX:
-      \begin{block}{Code for Adding Images}
-        \begin{lstlisting}[language=TeX]
-          \usepackage{graphicx}
-          % ...
-          \includegraphics
-          [width=\textwidth]{images/default}
-        \end{lstlisting}
-      \end{block}
+    \begin{column}{0.4\textwidth}
+      \begin{itemize}
+      \item \texttt{tiny}: {\tiny 极小号字体}
+      \item \texttt{footnotesize}: {\footnotesize 脚注大小字体}  
+      \item \texttt{footnotesize}: {\footnotesize 脚注大小字体}
+      \item \texttt{small}: {\small 小号字体}
+      \item \texttt{normalsize}: {\normalsize 正常大小字体}
+      \item \texttt{large}: {\large 大号字体}
+        
+
+      \end{itemize}
     \end{column}
-    \begin{column}{0.3\textwidth}
-      \includegraphics
-      [width=\textwidth]{images/default}\\
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+      \item \texttt{Large}: {\Large 更大号字体}
+      \item \texttt{LARGE}: {\LARGE 很大号字体}
+      \item \texttt{huge}: {\huge 极大号字体}
+      \item \texttt{Huge}: {\Huge 超大号字体}
+      \end{itemize}
     \end{column}
   \end{columns}
+
 \end{frame}
 
-\begin{frame}[fragile]{Splitting in Columns}
-  Splitting the page is easy and common;
-  typically, one side has a picture and the other text:
+\subsection{段落}
+\begin{frame}[fragile]{有序列表}
+  可以用如下方式使用有序列表：
   \begin{columns}
     \begin{column}{0.6\textwidth}
-      This is the first column
+      \begin{minted}{latex}
+        \begin{enumerate}
+        \item first item
+        \item second item
+          \begin{enumerate}
+          \item second item first child
+          \item second item second child
+          \end{enumerate}
+        \item third item
+        \end{enumerate}
+      \end{minted}
     \end{column}
-    \begin{column}{0.3\textwidth}
-      And this the second
+    
+    \begin{column}{0.4\textwidth}
+      \begin{enumerate}
+      \item first item
+      \item second item
+        \begin{enumerate}
+        \item second item first child
+        \item second item second child
+        \end{enumerate}
+      \item third item
+      \end{enumerate}
     \end{column}
   \end{columns}
-  \begin{block}{Column Code}
-    \begin{lstlisting}[language=TeX]
-      \begin{columns}
-        \begin{column}{0.6\textwidth}
-          This is the first column
-        \end{column}
-        \begin{column}{0.3\textwidth}
-          And this the second
-        \end{column}
-        % There could be more!
-      \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{无序列表}
+  可以用如下方式使用无序列表：
+  
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \begin{minted}{latex}
+        \begin{itemize}
+        \item first item
+        \item second item
+          \begin{itemize}
+          \item second item first child
+          \item second item second child
+          \end{itemize}
+        \item third item
+        \end{itemize}
+      \end{minted}
+    \end{column}
+    
+    \begin{column}{0.4\textwidth}
+      \begin{itemize}
+      \item first item
+      \item second item
+        \begin{itemize}
+        \item second item first child
+        \item second item second child
+        \end{itemize}
+      \item third item
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{图片}
+  在 Beamer 中插入图片的方法和 \LaTeX 中的是一样的，同样可以加注释和标签，如图 \ref{demo} 。但是 Beamer 的 \texttt{ref} 会显示页数而非计数器。
+  
+  \begin{figure}[h!]
+    \label{demo}
+    \includegraphics[width=0.4\textwidth]{images/demo}
+    \centering
+    \caption{瑞克和莫蒂 demo}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Listing 代码块}
+  Green Park 一共提供了 2 中代码块环境，其中一种是 \texttt{lslisting} 环境，这种代码块的依赖较少，但是高亮效果较差：
+  
+  \begin{block}{HelloWorld in C}
+    \begin{lstlisting}[language=c]  
+      #include <stdio.h>
+
+      int main() {
+        printf("Hello, world!\n");
+        return 0;
+      }
     \end{lstlisting}
   \end{block}
+
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Fonts}
+\begin{frame}[fragile]{Minted 代码块}
+  另一种是 \texttt{minted} 环境，这种代码块的依赖较少，高亮效果好，但是需要安装 \chref{https://pygments.org/docs/cmdline/}{pygmentize}：
+  \begin{minted}{c}
+    #include <stdio.h>
+
+    int main() {
+      printf("Hello, world!\n");
+      return 0;
+    }
+  \end{minted}
+
+\end{frame}
+
+\begin{frame}{数学公式}
+  Green Park 也支持公式的插入和编号：
+  
+  \begin{align}
+    &\oint_{l} H \cdot dl=\int_{s}J\cdot ds+ \int_{s} \frac {\partial D} {\partial t} \\
+    &\oint_{l} E \cdot dl=-\frac {d}{dt}\int_{s}B\cdot ds \\
+    &\oint_{s}B\cdot ds=0 \\
+    &\oint_{s}D\cdot ds=\int_{s}\rho dv
+  \end{align}
+\end{frame}
+
+\subsection{结构}
+\begin{frame}[fragile]{目录}
+  Beamer 的基本单位是 frame 。我们可以用 \texttt{frametitle} 来指定标题，或者直接向 \texttt{frame} 环境传入题目参数。当 frame 中有 \texttt{minted} 环境时，需要传入可选参数 \texttt{[fragile]} 。
+
+  Beamer 中同样可以使用 \texttt{section} 和 \texttt{subsection} 。它们组成了 Beamer 的目录结构，frame 会依附在相邻的目录中。
+\end{frame}
+
+\begin{frame}[fragile]{多列布局}
+  可以用如下代码在 frame 中形成多列布局。
+  \begin{minted}{latex}
+    \begin{columns}  
+      \begin{column}{0.5\textwidth}
+        Root
+      \end{column}
+      \begin{column}{0.5\textwidth}
+        Hammer
+      \end{column}
+    \end{columns}
+  \end{minted}
+\end{frame}
+
+
+\section{开发}
+\begin{frame}{事项}
+  Green Park 是我在短短两天内非常仓促地开发出来的，所以肯定存在很多问题，希望能在以后地迭代中持续优化。目前的优化大致有三个方向：
+
   \begin{itemize}
-  \item The paramount task of fonts is being readable
-  \item There are good ones...
-    \begin{itemize}
-    \item {\textrm{Use serif fonts only with high-definition projectors}}
-    \item {\textsf{Use sans-serif fonts otherwise (or if you simply prefer them)}}
-    \end{itemize}
-  \item ... and not so good ones:
-    \begin{itemize}
-    \item {\texttt{Never use monospace for normal text}}
-    \item {\frakfamily Gothic, calligraphic or weird fonts: should always: be
-        avoided}
-    \end{itemize}
+  \item 工程化：以上传到 Overleaf 为目标；同时剔除项目中的 SINTEF 残留。
+  \item 字体：目前字体还有一些非常恼人的细节问题，主要是等宽字体。
+  \item 美观：Green Park 设计的一个重要方向就是多态，它可以通过定义主题色和校徽等素材轻松地“制造”出新的一套模板，欢迎大家自定义自己的主题，如果方便的话，可以提个 PR 。
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Look}
-  \begin{itemize}
-  \item To change the colour of the title dash, give one of the class options
-    \texttt{cyandash} (default), \texttt{greendash}, \texttt{magentadash},
-    \texttt{yellowdash}, or \texttt{nodash}.
-  \item To change between the light and dark themes, give the class options
-    \texttt{light} (default) or \texttt{dark}. It is not possible to switch
-    theme for one slide because of the design of Beamer---and it's probably a
-    good thing.
-  \item To insert a final slide, use \verb|\backmatter|.
-  \item The aspect ratio defaults to 16:9, but you can change it to 4:3 for old
-    projectors by passing the class option \texttt{aspectratio=43}; any other
-    values accepted by Beamer are also possible.
-  \end{itemize}
+\begin{frame}{总结}
+  浑浑噩噩地四年就过去了，我之前在准备德育答辩的时候搜索北航的 Beamer 主题，发现大多都太老旧了。所以花了一些时间制作了 Green Park 主题。我大概还有不到一个月就要离开北京了，这大概就是我寄给她的最后一封情书了。
+
+  $$
+  te \ echo\  de\  menos.
+  $$
+
 \end{frame}
 
-\section{Summary}
 
-\begin{frame}
-  \frametitle{Good Luck!}
-  \begin{itemize}
-  \item Enough for an introduction! You should know enough by now
-  \item If you have corrections or suggestions,
-    \chref{mailto:federico.zenith@sintef.no}{send them to me!}
-  \end{itemize}
-\end{frame}
-
-\backmatter 
-
+\backmatter
 \end{document}
