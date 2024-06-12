@@ -1,17 +1,21 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{gparkcolor}[2024/06/11]
 
+% TODO: 增加校训
+\newcommand{\@SINTEFmotto}{}
+
 \RequirePackage{xcolor}
 
 % TODO: change the color name to gpark
-% Main colour
-\definecolor{sintefblue}{RGB}{38, 113, 142}
+% 主色调
+\definecolor{sintefblue}{RGB}{0, 80, 160}
 
-% Air Force Blue
+% 行内样式色调
 \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{emphred}{RGB}{210,38,139}
 
 \definecolor{morelightgray}{rgb}{0.9, 0.9, 0.9}
-
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
 % "Warm grey"
 \definecolor{sintefgrey}{RGB/cmyk}{235,235,230/0,0,0,.1}
 \colorlet{sintefgray}{sintefgrey}

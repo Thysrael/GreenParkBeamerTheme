@@ -32,5 +32,8 @@
 *.swp
 *.thm
 *.pdf
+*.fls
+*.xdv
 .DS_Store
+_minted-main
 auto

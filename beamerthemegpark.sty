@@ -1,31 +1,115 @@
 \ProvidesPackage{beamerthemegpark}[2024/06/11]
 
-\RequirePackage{etoolbox}
-\RequirePackage{tikz}
-\RequirePackage{listings}
+% 颜色设置
+\RequirePackage{gparkcolor}
 
-% Force 16:9 aspect ratio
-\RequirePackage{geometry}
-\geometry{paperwidth=16cm,paperheight=9cm}
+\RequirePackage{etoolbox} % 语言工具包
+\RequirePackage{tikz} % 绘图包
 
-% Caladea is a Cambria clone, Carlito a Calibri clone
-\RequirePackage{caladea,carlito}
-\renewcommand{\familydefault}{\sfdefault}
+% 代码块颜色
+\RequirePackage{listings} 
 
-\RequirePackage{graphicx, gparkcolor}
+% listings 颜色设置
+\definecolor{codegreen}{RGB}{101,218,120}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-% No navigation symbols
+\lstdefinestyle{mystyle}{
+  % backgroundcolor=\color{backcolour},
+  commentstyle=\color{airforceblue},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\scriptsize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=4,
+  xleftmargin=10pt,
+  xrightmargin=10pt,
+}
+
+\lstset{style=mystyle}
+
+\RequirePackage{verbatim}
+% 另一种代码环境
+\RequirePackage{minted}
+\setminted{
+	tabsize=4,
+	encoding=utf8,
+    bgcolor=lightgray, % 背景
+    % style=emacs % 主题
+}
+
+% 强制页面比例为 16:9 
+\RequirePackage{geometry} % 页面布局包
+\geometry{paperwidth=16cm, paperheight=9cm}
+
+% 间距
+\renewcommand{\baselinestretch}{1.2} % 行高
+\setlength{\parskip}{0.2\baselineskip} % 段间距
+\setlength{\parindent}{2em} % 首行缩进 2 字符
+
+% 字体
+\setmainfont{Times New Roman} % 英文字体
+\setCJKmainfont{TsangerJinKai05} % 正文字体
+\setCJKsansfont{Source Han Serif CN} % 标题字体
+% TODO: minted 无法使用指定的等宽字体
+\setCJKmonofont{JetBrainsMono Nerd Font Mono} % 等宽字体
+\RequirePackage{amsfonts, amsmath, oldgerm, lmodern, bm} % 数学相关的字体
+\let\songti\relax
+\let\heiti\relax
+\setCJKfamilyfont{songti}[AutoFakeBold = {2.17}]{SimSun}
+\setCJKfamilyfont{heiti}[AutoFakeBold = {2.17}]{Source Han Serif CN}
+\setCJKfamilyfont{hwxingkai}[AutoFakeBold = {2.17}]{STXingkai}
+\newcommand{\songti}{\CJKfamily{songti}}
+\newcommand{\heiti}{\CJKfamily{heiti}}
+\newcommand{\hwxingkai}{\CJKfamily{hwxingkai}}
+
+% 行内格式
+% 粗体
+\let\oldtextbf\textbf
+\def\textbf#1{\oldtextbf{\heiti #1}}
+\newcommand{\ctextbf}[1]{\textcolor{airforceblue}{\textbf{#1}}}
+% 斜体
+\let\oldtextsl\textsl
+\def\textsl#1{\oldtextsl{\hwxingkai #1}}
+\newcommand{\ctextsl}[1]{\textcolor{airforceblue}{\textsl{#1}}}
+% 强调
+\let\oldemph\emph
+\def\emph#1{\oldemph{\textcolor{emphred}{\textbf{#1}}}}
+% 行内代码
+\let\oldtexttt\texttt
+\renewcommand{\texttt}[1]{\tikz[baseline=(MeNode.base)]{\node[rounded corners=1.5pt, fill=lightgray](MeNode){#1};}}
+% 链接
+\newcommand{\chref}[2]{\textcolor{airforceblue}{\href{#1}{#2}}}
+\newcommand{\chlink}[1]{\chref{#1}{#1}}
+
+\RequirePackage{graphicx} % 图片插入
+
+% 没有导航栏
 \setbeamertemplate{navigation symbols}{}
 
+% motto 是格言的意思
 \newcommand{\@footlinepayoff}{\@SINTEFmotto}
-\setbeamertemplate{footline}{%
+
+% 设置脚注模板，就是绘制了一个 box 
+\setbeamertemplate{footline}{
   \begin{beamercolorbox}[wd=\textwidth,ht=5mm,dp=3mm,rightskip=1cm]{footline}
-  \usebeamerfont{footline}\hfill\@footlinepayoff
+    \usebeamerfont{footline}\hfill\@footlinepayoff
   \end{beamercolorbox}
 }
 
-% Set footline AND coordinate blocks with it
-\newcommand{\footlinecolor}[1]{% if #1 is empty, makes footline transparent
+% 选择脚注颜色，default 选择透明脚注，即无脚注
+% 如果 SINTEFmotto 不为空，那么就会在脚注处生成格言
+\newcommand{\footlinecolor}[1]{ % if #1 is empty, makes footline transparent
   \ifstrempty{#1}{%
     \renewcommand{\@footlinepayoff}{}
     \setbeamercolor{footline}{bg=}
@@ -40,31 +124,33 @@
 }
 \footlinecolor{} % Default: no footline
 
-\pgfdeclareimage[width=0.09\paperwidth]{bluelogo}{images/SINTEF_Logo_Sentrert_RGB}
-\pgfdeclareimage[width=0.09\paperwidth]{whitelogo}{images/SINTEF_Logo_Sentrert_Negativ_RGB}
+% 声明了两个 logo 图片
+\pgfdeclareimage[width=0.09\paperwidth]{bluelogo}{images/logo}
+\pgfdeclareimage[width=0.09\paperwidth]{whitelogo}{images/logo_negative}
 \newcommand{\@SINTEFlogo}{bluelogo}
 
-% Set colours
+% 设置主题颜色，如果不是蓝色，那么就选择 sintef 指定的颜色
 % NOTE! Beamer colors should be set in the preamble. It often works fine in the
-%       document itself, but NOT for normal text foreground.
-%       \themecolor should only be called from the preamble.
+% document itself, but NOT for normal text foreground.
+% \themecolor should only be called from the preamble.
 \newcommand{\themecolor}[1]{
-	\ifstrequal{#1}{blue}{%
-		\setbeamercolor{normal text}{fg=white,bg=sintefblue}
-		\setbeamercolor{structure}{fg=white}
-		\renewcommand{\@SINTEFlogo}{whitelogo}
-		\setbeamercolor{block title}{fg=sintefblue,bg=sintefgrey}
-		\setbeamercolor{block body}{fg=sintefblue,bg=sintefgrey}
-	}{%
-		\setbeamercolor{normal text}{fg=darkgray,bg=white}
-		\setbeamercolor{structure}{fg=sintefblue}
-		\renewcommand{\@SINTEFlogo}{bluelogo}
-		\setbeamercolor{block title}{fg=airforceblue,bg=morelightgray}
-		\setbeamercolor{block body}{fg=darkgray,bg=morelightgray}
-	}
+  \ifstrequal{#1}{blue}{%
+    \setbeamercolor{normal text}{fg=white,bg=sintefblue}
+    \setbeamercolor{structure}{fg=white}
+    \renewcommand{\@SINTEFlogo}{whitelogo}
+    \setbeamercolor{block title}{fg=sintefblue,bg=sintefgrey}
+    \setbeamercolor{block body}{fg=sintefblue,bg=sintefgrey}
+  }{%
+    \setbeamercolor{normal text}{fg=darkgray,bg=white}
+    \setbeamercolor{structure}{fg=sintefblue}
+    \renewcommand{\@SINTEFlogo}{bluelogo}
+    \setbeamercolor{block title}{fg=airforceblue,bg=morelightgray}
+    \setbeamercolor{block body}{fg=darkgray,bg=morelightgray}
+  }
 }
 \themecolor{white} % Default: white theme
 
+% 设置各种样式的字体
 \setbeamercolor{title}{fg=sintefblue}
 \setbeamercolor{alerted text}{fg=sintefred}
 \setbeamercolor{author}{fg=black}
@@ -72,33 +158,33 @@
 
 \setbeamerfont{author}{size=\scriptsize}
 \setbeamerfont{date}{size=\tiny}
-\setbeamerfont{title}{series=\bfseries}
+\setbeamerfont{title}{series=\bfseries, family=\sffamily}
 \setbeamerfont{subtitle}{series=\mdseries,size=\footnotesize}
-\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamerfont{frametitle}{series=\bfseries, family=\sffamily}
 \setbeamerfont{framesubtitle}{series=\mdseries}
 \setbeamerfont{footline}{size=\scriptsize}
 \setbeamerfont{block title}{series=\centering, size=\small}
 \setbeamerfont{block body}{size=\scriptsize}
 
 % Code to get prettier boxes
-\setbeamertemplate{blocks}[rounded]%, shadow=true]
+\setbeamertemplate{blocks}[rounded]
 
-% Bullets in several levels
+% 设置无序列表样式
 \setbeamertemplate{itemize item}{\textbullet}
-\setbeamertemplate{itemize subitem}{\textemdash}
-\setbeamertemplate{itemize subsubitem}{\ensuremath{\circ}}
+\setbeamertemplate{itemize subitem}{\ensuremath{\circ}}
+\setbeamertemplate{itemize subsubitem}{\textemdash}
 
-\newenvironment{colorblock}[3][white]{%
-	\begingroup
-	\setbeamercolor{block title}{fg=#1,bg=#2}
-	\setbeamercolor{block body} {fg=#1,bg=#2}
-	\begin{block}{#3}
-	}{%
-	\end{block}
-	\endgroup
+\newenvironment{colorblock}[3][white]{
+  \begingroup
+  \setbeamercolor{block title}{fg=#1,bg=#2}
+  \setbeamercolor{block body} {fg=#1,bg=#2}
+  \begin{block}{#3}
+  }{
+  \end{block}
+  \endgroup
 }
 
-% Put the logo in each slide's top left area
+% 将 logo 放在左上角
 \setbeamertemplate{headline}{\hspace{0.06\textwidth}\pgfuseimage{\@SINTEFlogo}}
 
 % Define frame title and subtitle layout
@@ -110,7 +196,7 @@
   \end{beamercolorbox}
 }
 
-% Define the title page
+% 标题页面
 \setbeamertemplate{title page}{
   \vskip0pt plus 1filll
   \hspace{-12mm}% Pull back the box in an inelegant way - but it works!
@@ -129,9 +215,9 @@
   \rule{0.4\paperwidth}{0pt}%
   \begin{tikzpicture}
     \clip (-0.1\paperwidth,-0.5\paperheight) --
-          ( 0.5\paperwidth,-0.5\paperheight) --
-          ( 0.5\paperwidth, 0.5\paperheight) --
-          ( 0.1\paperwidth, 0.5\paperheight) -- cycle;
+    ( 0.5\paperwidth,-0.5\paperheight) --
+    ( 0.5\paperwidth, 0.5\paperheight) --
+    ( 0.1\paperwidth, 0.5\paperheight) -- cycle;
     \node at (0.2\paperwidth,0) {%
       \includegraphics[height=\paperheight]{#1}%
     };
@@ -143,12 +229,12 @@
 \newcommand{\titlebackground}{\@ifstar{\SplitBackground}{\FullBackground}}
 \newcommand{\FullBackground}[1]{\renewcommand{\@TitleBackground}{#1}}
 \newcommand{\SplitBackground}[1]{%
-	\booltrue{splittitle}%
-	\renewcommand{\@TitleBackground}{#1}%
+  \booltrue{splittitle}%
+  \renewcommand{\@TitleBackground}{#1}%
 }
 
 \renewcommand{\maketitle}{
-\begingroup
+  \begingroup
   \setbeamertemplate{footline}{}
   \ifdefempty{\@TitleBackground}{}{% Skip if \@TitleBackground is empty
     \setbeamertemplate{background}{%
@@ -160,9 +246,9 @@
     }
   }
   \begin{frame}%
-      \Large\titlepage%
+    \Large\titlepage%
   \end{frame}%
-\endgroup
+  \endgroup
 }
 
 \newenvironment{chapter}[3][]{% Args: image (optional), color, frame title
@@ -185,11 +271,11 @@
     \end{beamercolorbox}
   }
   \begin{frame}{#3}
-  \hspace*{0.05\textwidth}%
-  \minipage{0.35\textwidth}%
-  \usebeamercolor[fg]{normal text}%
-}{%
-  \endminipage
+    \hspace*{0.05\textwidth}%
+    \minipage{0.35\textwidth}%
+    \usebeamercolor[fg]{normal text}%
+  }{%
+    \endminipage
   \end{frame}
   \endgroup
 }
@@ -197,8 +283,8 @@
 \newenvironment{sidepic}[2]{% Args: image, frame title
   \begingroup
   \setbeamertemplate{background}{%
-  \hspace*{0.6\paperwidth}%
-  \includegraphics[height=\paperheight]{#1}%
+    \hspace*{0.6\paperwidth}%
+    \includegraphics[height=\paperheight]{#1}%
   }
   \setbeamertemplate{frametitle}{% Same as normal, but with right skip
     \vspace*{-3.5ex}
@@ -208,29 +294,29 @@
     \end{beamercolorbox}
   }
   \begin{frame}{#2}
-  \minipage{0.6\textwidth}%
-}{%
-  \endminipage
+    \minipage{0.6\textwidth}%
+  }{%
+    \endminipage
   \end{frame}
   \endgroup
 }
 
-\newcommand{\@SINTEFmotto}{}
-\newcommand{\setmotto}{\renewcommand{\@SINTEFmotto}}
+% 结尾页
 \newcommand{\backmatter}{
-\begingroup
+  \begingroup
   \setbeamertemplate{footline}{}
+  \setbeamertemplate{background}{}
   \themecolor{blue}
   \begin{frame}[c]{}
     \centering
     \begin{minipage}{\textwidth}
-    	\usebeamercolor[fg]{normal text}
-	    \centering
-        \Huge $$\mathcal Q \& \mathcal A$$
-    	\Large \textsl{Thank you for listening! \\ Your feedback will be highly appreciated!}
+      \usebeamercolor[fg]{normal text}
+      \centering
+      \Huge $$\mathcal Q \& \mathcal A$$
+      \Large \textsl{Thank you for listening! \\ Your feedback will be highly appreciated!}
     \end{minipage}
   \end{frame}
-\endgroup
+  \endgroup
 }
 
 % MY CUSTOMIZATION
@@ -238,9 +324,9 @@
 \newcommand{\strtoc}{Table of Contents}
 \newcommand{\strsubsec}{Section \thesection.\thesubsection}
 % packages, font, color, and new commands
-\usepackage{amsfonts, amsmath, oldgerm, lmodern, animate}
-\usepackage{verbatim}
-\usepackage{bm}
+
+\usepackage{animate}
+
 \usefonttheme{serif}
 
 % TYPESETTING ELEMENTS
@@ -254,120 +340,79 @@
 
 % automate subtitle of each frame
 \makeatletter
-    \pretocmd\beamer@checkframetitle{\framesubtitle{\thesection \, \secname}}
+\pretocmd\beamer@checkframetitle{\framesubtitle{\thesection \, \secname}}
 \makeatother
 
 % avoid numbering of frames that are breaked into multiply slides
 \setbeamertemplate{frametitle continuation}{}
 
+\newcommand{\background}[1]{\setbeamertemplate{background}{\includegraphics[height=\paperheight]{#1}}}
+
+
 % at the begining of section, add table of contents with the current section highlighted
 \AtBeginSection[]
 {
-    \begingroup
-    \setbeamertemplate{footline}{}
-    \themecolor{blue}
-    \begin{frame}{Table of Contents}
-        \tableofcontents[currentsection]
-    \end{frame}
-    \endgroup
+  \begingroup
+  \setbeamertemplate{footline}{}
+  \setbeamertemplate{background}{}
+  \themecolor{blue}
+  \begin{frame}{Table of Contents}
+    
+    \tableofcontents[currentsection]
+  \end{frame}
+  \endgroup
 }
 
 % at the beginning of subsection, add subsection title page
 \AtBeginSubsection[]
 {
-    \begin{frame}{\,}{\thesection \, \secname}
-        \fontfamily{ptm}\selectfont
-        \centering\textsl{\textbf{\textcolor{sintefblue}{
-            \large Section \thesection.\thesubsection
-            \vskip15pt
-            \LARGE \subsecname
+  \setbeamertemplate{footline}{}
+  \setbeamertemplate{background}{}
+  \begin{frame}{\,}{\thesection \, \secname}
+    \fontfamily{ptm}\selectfont
+    \centering\textsl{\textbf{\textcolor{sintefblue}{
+          \large Section \thesection.\thesubsection
+          \vskip15pt
+          \LARGE \subsecname
         }}}
-    \end{frame}
+  \end{frame}
 }
-
-% code bolck setting
-\definecolor{codegreen}{RGB}{101,218,120}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-\lstdefinestyle{mystyle}{
-    % backgroundcolor=\color{backcolour},
-    commentstyle=\color{airforceblue},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\scriptsize,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=4,
-    xleftmargin=10pt,
-    xrightmargin=10pt,
-}
-
-\lstset{style=mystyle}
-
-% NEW COMMANDS
-
-% set colored hyperlinks command
-\newcommand{\hrefcol}[2]{\textcolor{airforceblue}{\href{#1}{#2}}}
-\newcommand{\hlinkcol}[1]{\hrefcol{#1}{#1}}
-
 
 % centering paragraph statement
 \newcommand{\centerstate}[1]{
-    \centering
-    \begin{columns}
-        \begin{column}{0.8\textwidth}
-            #1
-        \end{column}
-    \end{columns}
+  \centering
+  \begin{columns}
+    \begin{column}{0.8\textwidth}
+      #1
+    \end{column}
+  \end{columns}
 }
-
-% colored textbf
-\newcommand{\ctextbf}[1]{\textbf{\textcolor{sintefblue}{#1}}}
-\newcommand{\btextbf}[1]{\textbf{\textcolor{airforceblue}{#1}}}
-
-% colored textsl
-\newcommand{\ctextsl}[1]{\textsl{\textcolor{sintefblue}{#1}}}
-\newcommand{\btextsl}[1]{\textsl{\textcolor{airforceblue}{#1}}}
-
-% colored emph
-\newcommand{\cemph}[1]{\emph{\textcolor{sintefblue}{#1}}}
-\newcommand{\bemph}[1]{\emph{\textcolor{airforceblue}{#1}}}
 
 % about page
 \newcommand{\aboutpage}[2]{
-    \begingroup
-    \setbeamertemplate{footline}{}
-    \themecolor{blue}
-    \begin{frame}[c]{#1}{\,}
-        \centering
-        \begin{minipage}{\textwidth}
-            \usebeamercolor[fg]{normal text}
-            \centering
-            \Large \textsl{\normalsize #2}
-        \end{minipage}
-    \end{frame}
-    \endgroup
+  \begingroup
+  \setbeamertemplate{footline}{}
+  \themecolor{blue}
+  \begin{frame}[c]{#1}{\,}
+    \centering
+    \begin{minipage}{\textwidth}
+      \usebeamercolor[fg]{normal text}
+      \centering
+      \Large \textsl{\normalsize #2}
+    \end{minipage}
+  \end{frame}
+  \endgroup
 }
 
 % bibliography page
 \newcommand{\bibliographpage}{
-    \section{References}
+  \section{References}
 
-    \begingroup
-    \themecolor{blue}
-    \begin{frame}[allowframebreaks]{References}{\,}
-        \tiny
-        \printbibliography[heading=none]
-    \end{frame}
-\endgroup
+  \begingroup
+  \themecolor{blue}
+  \begin{frame}[allowframebreaks]{References}{\,}
+    \tiny
+    \printbibliography[heading=none]
+  \end{frame}
+  \endgroup
 }

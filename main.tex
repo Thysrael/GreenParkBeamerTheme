@@ -1,41 +1,53 @@
 \documentclass{ctexbeamer}
 
 \usetheme{gpark}
-
 % meta-data
-\title{BUAA Beamer \\ 展示主题}
+\title{BUAA Beamer 主题 \\ Green Park 绿园}
 \subtitle{使用 \LaTeX\ 制作幻灯片}
 \author{\href{https://github.com/Thysrael}{Thysrael}}
 \date{创建于 2024 年 6 月 11 日}
-\titlebackground{images/background}
+\titlebackground{images/titlebackground}
+\background{images/background}
 
 \begin{document}
 
 \maketitle
 
 % 声明页
-\begin{frame}
-  这个 Beamer 主题是基于 \hrefcol{https://github.com/liu-qilong/Beamer-LaTeX-Themes}{Beamer-LaTeX-Themes} 的二次开发，而这个主题是基于 \hrefcol{https://www.overleaf.com/latex/templates/sintef-presentation/jhbhdffczpnx}{SINTEF Presentation} 的二次开发。感谢这些开发者们。
+\begin{frame}{}
+  “绿园 GreenPark”是由北航六系同学开发的一款非官方的 \LaTeX Beamer 主题，它具有简约现代的设计特点。
   
-  之后会介绍如何使用 \LaTeX 和 Beamer 来制作幻灯片。
+  GreenPark 是基于 \chref{https://www.overleaf.com/latex/templates/sintef-presentation/jhbhdffczpnx}{SINTEF Presentation} 和 \chref{https://github.com/liu-qilong/Beamer-LaTeX-Themes}{Beamer-LaTeX-Themes} 的二次开发，GreenPark 去掉了 SINTEF 的一些 deprecated 的特征，并增加了中文支持。感谢这些开发者高品味和优雅的设计。封面素材来自北航姜海洋同学的摄影作品。背景图片来自北航新闻中心，均已取得相关授权。感谢他们的慷慨。
 
-  % TODO: 介绍一下 lecense
-  
+  本主题采用 \chref{https://creativecommons.org/licenses/by/4.0/deed.zh-hans}{CC-BY-4.0}，您可以自由地共享和演绎，只需要给出适当的署名。
+
+  本主题目前已经结束开发\textsl{（其实只是为了在离开北航前留个印迹）}。但是后续或许会继续开发。欢迎提交 issue/pr 。
+
 \end{frame}
 
 \section{Introduction}
+
+% % \textbf{彩色粗体 ctextbf} \textbf{普通粗体 textbf}，\ctextsl{彩色斜体 ctextsl} \textsl{普通斜体 textsl} ，\cemph{彩色打印文本 emph} \emph{普通打印文本 emph}
+% \textbf{普通粗体 textbf} \ctextbf{彩色粗体 textbf}，\textsl{彩色斜体 textsl} ，\emph{彩色打印文本 emph}
+% 
+% \begin{minted}{python}
+%   def main():
+%   print("Hello, world!");
+%   return 0
+% \end{minted}
 
 \begin{frame}{Beamer for SINTEF slides}{\thesection \, \secname}
 
   \begin{itemize}
   \item We assume you can use \LaTeX; if you cannot,
-    \hrefcol{http://en.wikibooks.org/wiki/LaTeX/}{you can learn it here}
+    \chref{http://en.wikibooks.org/wiki/LaTeX/}{you can learn it here}
   \item Beamer is one of the most popular and powerful document
     classes for presentations in \LaTeX
   \item Beamer has also a detailed
-    \hrefcol{http://www.ctan.org/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf}{user manual}
+    \chref{http://www.ctan.org/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf}{user manual}
   \item Here we will present only the most basic features to get you up to speed
   \end{itemize}
+
 \end{frame}
 
 \begin{frame}{Beamer vs. PowerPoint}
@@ -201,10 +213,10 @@
   \begin{itemize}
   \item Enough for an introduction! You should know enough by now
   \item If you have corrections or suggestions,
-    \hrefcol{mailto:federico.zenith@sintef.no}{send them to me!}
+    \chref{mailto:federico.zenith@sintef.no}{send them to me!}
   \end{itemize}
 \end{frame}
 
-\backmatter
+\backmatter 
 
 \end{document}

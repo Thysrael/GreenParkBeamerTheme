@@ -1,9 +1,12 @@
-.PHONY: all clean
+.PHONY: all clean mk
 
 all:
-	xelatex --synctex=1 main.tex
-	xelatex --synctex=1 main.tex
+	xelatex --synctex=1 -shell-escape main.tex
+	xelatex --synctex=1 -shell-escape main.tex
 
 clean:
 	find . -name '*.aux' -print0 | xargs -0 rm -rf
-	rm -rf *.lof *.log *.lot *.out *.toc *.bbl *.blg *.thm *.nav *.snm *.vrb *.gz
+	rm -rf *.lof *.log *.lot *.out *.toc *.bbl *.blg *.thm *.nav *.snm *.vrb *.gz build _minted-main *.fls *.xdv *.pdf
+
+mk:
+	latexmk -xelatex -quiet --synctex=1 -shell-escape -f main.tex
