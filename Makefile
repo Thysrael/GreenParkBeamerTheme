@@ -13,4 +13,4 @@ clean:
 	rm -rf *.lof *.log *.lot *.out *.toc *.bbl *.blg *.thm *.nav *.snm *.vrb *.gz build _minted-main *.fls *.xdv *.pdf *latexmk
 
 save:
-	cp main.pdf example/example.pdf
+	cp main.pdf misc/example.pdf
