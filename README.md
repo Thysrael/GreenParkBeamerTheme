@@ -12,7 +12,42 @@ Green Park 是北航六系开发的一款非官方的 LaTeX Beamer 中文主题�
 
 关于该主题的展示，可以参考该[示例文件](./misc/example.pdf)。
 
+## Overleaf
+考虑到本地搭建 LaTeX 环境的不易，我强烈建议使用 Overleaf 来制作 Beamer 。本主题需要修改 [beamerthemegpark.sty](./beamerthemegpark.sty) 中的部分内容。
 
+``` latex
+%%%%%%%%%%%%%%%%%% BEFORE %%%%%%%%%%%%%%%%%%%%%%%%
+\setmainfont{Times New Roman} % 英文字体
+\setCJKmainfont{TsangerJinKai05} % 正文字体
+\setCJKsansfont{Source Han Serif CN} % 标题字体
+% TODO: minted 无法使用指定的等宽字体
+\setCJKmonofont{JetBrainsMono Nerd Font Mono} % 等宽字体
+\RequirePackage{amsfonts, amsmath, oldgerm, lmodern, bm} % 数学相关的字体
+\let\songti\relax
+\let\heiti\relax
+\setCJKfamilyfont{heiti}[AutoFakeBold = {2.17}]{Source Han Serif CN}
+\setCJKfamilyfont{hwxingkai}[AutoFakeBold = {2.17}]{STXingkai}
+\newcommand{\heiti}{\CJKfamily{heiti}}
+\newcommand{\hwxingkai}{\CJKfamily{hwxingkai}}
+
+%%%%%%%%%%%%%%%%%% AFTER %%%%%%%%%%%%%%%%%%%%%%%%
+\setmainfont{Times New Roman} % 英文字体
+\setCJKmainfont{FandolFang} % 正文字体
+\setCJKsansfont{FandolHei} % 标题字体
+% TODO: minted 无法使用指定的等宽字体
+% \setCJKmonofont{JetBrainsMono Nerd Font Mono} % 等宽字体
+\RequirePackage{amsfonts, amsmath, oldgerm, lmodern, bm} % 数学相关的字体
+\let\songti\relax
+\let\heiti\relax
+\setCJKfamilyfont{heiti}[AutoFakeBold = {2.17}]{FandolHei}
+\setCJKfamilyfont{hwxingkai}[AutoFakeBold = {2.17}]{FandolKai}
+\newcommand{\heiti}{\CJKfamily{heiti}}
+\newcommand{\hwxingkai}{\CJKfamily{hwxingkai}}
+```
+
+本仓库体积较大，可以考虑删除 `misc` 文件夹，即可上传 Overleaf 。
+
+需要在 Overleaf 左上角菜单处将编译器设置成 `XeLaTeX` 方可通过中文编译。
 
 ## 依赖
 
@@ -52,6 +87,8 @@ Green Park 支持极高程度的自定义，您可以通过简单的修改打造
 ## 开发
 
 目前 Green Park 完成了初版，后续会考虑调整字体细节和上传 Overleaf。考虑到该主题代码量约 500 行，十分适合进一步修改，欢迎大家提 Issue 或者 PR。
+
+对于图片的设计，我个人也是小白，是找的网上的抠图网站，后期的处理是使用的 WPS PPT 。我在 [misc](./misc/) 下存放了我使用到的素材和加工 PPT 。
 
 如果有共同建设 Green Park 主题意愿的开发者（北航之前的 Beamer 主题没有现代风格的），可以在 Issue 或者项目中搜索 `TODO` 来查询现有的不足。
 
