@@ -7,7 +7,7 @@
 \author{\href{https://github.com/Thysrael}{Thysrael}}
 \date{创建于 2024 年 6 月 11 日}
 \titlebackground{images/titlebackground}
-\background{images/background}
+\background{images/background2}
 
 \begin{document}
 
@@ -188,6 +188,41 @@
     \centering
     \caption{瑞克和莫蒂 demo}
   \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{子图}
+  在 Beamer 中也可以插入子图
+  
+  \begin{figure}[h!]
+    \centering
+    \begin{tabular}{cc}
+      \subfigure[Rick]{
+      \includegraphics[width=0.40\textwidth]{images/demo}
+      } &
+          \subfigure[Morty]{
+          \includegraphics[width=0.40\textwidth]{images/demo}
+          }
+    \end{tabular}
+    \caption{两张瑞克和莫蒂}
+    \label{Nginx-Latency}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{三线格}
+  Beamer 同样支持三线格：
+  
+  \begin{table}[h]
+    \centering
+    \begin{tabular}{ccc}
+      \toprule 
+      a & b  &  c \\ 
+      \midrule 
+      1 & 2 & 3 \\
+      4 & 5 & 6 \\
+      7 & 8 & 9 \\
+      \bottomrule 
+    \end{tabular}
+  \end{table}
 \end{frame}
 
 \begin{frame}[fragile]{Listing 代码块}
