@@ -13,7 +13,12 @@ Green Park 是北航六系开发的一款非官方的 LaTeX Beamer 中文主题�
 关于该主题的展示，可以参考该[示例文件](./misc/example.pdf)。
 
 ## Overleaf
-考虑到本地搭建 LaTeX 环境的不易，我强烈建议使用 Overleaf 来制作 Beamer 。本主题需要修改 [beamerthemegpark.sty](./beamerthemegpark.sty) 中的部分内容。
+
+考虑到本地搭建 LaTeX 环境的不易，我强烈建议使用 Overleaf 来制作 Beamer 。您可以在如下[网址](https://www.overleaf.com/latex/templates/buaa-beamer-zhu-ti-green-park-lu-yuan/mzjvbpbxhpmp)使用该主题。
+
+![](./misc/overleaf.jpg)
+
+不过 overleaf 可能更新不及时，如果你需要最新版，需要您手动上传 overleaf，为了确保字体存在，本主题需要修改 [beamerthemegpark.sty](./beamerthemegpark.sty) 中的部分内容。
 
 ``` latex
 %%%%%%%%%%%%%%%%%% BEFORE %%%%%%%%%%%%%%%%%%%%%%%%
