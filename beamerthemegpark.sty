@@ -67,17 +67,48 @@
 \setlength{\parindent}{2em} % 首行缩进 2 字符
 
 % 字体
-% TODO: 我是不是应该用 overleaf 上有的字体
 \setmainfont{Times New Roman} % 英文字体
-\setCJKmainfont{TsangerJinKai05} % 正文字体
-\setCJKsansfont{Source Han Serif CN} % 标题字体
-% TODO: minted 无法使用指定的等宽字体
-\setCJKmonofont{JetBrainsMono Nerd Font Mono} % 等宽字体
+% 正文字体
+\IfFontExistsTF{TsangerJinKai05}{
+  \setCJKmainfont{TsangerJinKai05}
+}{
+  \setCJKmainfont{FandolFang}
+}
+% 标题字体
+\IfFontExistsTF{Source Han Serif CN}{
+  \newCJKfontfamily{\sintefserif}{Source Han Serif CN}
+}{
+  \newCJKfontfamily{\sintefserif}{FandolSong}
+}
+% 为minted指定字体，顺序匹配：JetBrainsMono Nerd Font Mono -> Cascadia Code -> Consolas -> Courier New
+\IfFontExistsTF{JetBrainsMono Nerd Font Mono}{
+  \newfontfamily{\mintedcodefont}{JetBrainsMono Nerd Font Mono}[NFSSFamily=mintedcodefont]
+}{
+\IfFontExistsTF{Cascadia Code}{
+  \newfontfamily{\mintedcodefont}{Cascadia Code}[NFSSFamily=mintedcodefont]
+}{
+\IfFontExistsTF{Consolas}{
+  \newfontfamily{\mintedcodefont}{Consolas}[NFSSFamily=mintedcodefont]
+}{
+  \newfontfamily{\mintedcodefont}{Courier New}[NFSSFamily=mintedcodefont]
+}}}
+
+\setminted{
+  fontfamily=mintedcodefont,
+}
 \RequirePackage{amsfonts, amsmath, oldgerm, lmodern, bm} % 数学相关的字体
 \let\songti\relax
 \let\heiti\relax
-\setCJKfamilyfont{heiti}[AutoFakeBold = {2.17}]{Source Han Serif CN}
-\setCJKfamilyfont{hwxingkai}[AutoFakeBold = {2.17}]{STXingkai}
+\IfFontExistsTF{Source Han Serif CN}{
+  \setCJKfamilyfont{heiti}[AutoFakeBold = {2.17}]{Source Han Serif CN}
+}{
+  \setCJKfamilyfont{heiti}[AutoFakeBold = {2.17}]{FandolHei}
+}
+\IfFontExistsTF{STXingkai}{
+  \setCJKfamilyfont{hwxingkai}[AutoFakeBold = {2.17}]{STXingkai}
+}{
+  \setCJKfamilyfont{hwxingkai}[AutoFakeBold = {2.17}]{FandolKai}
+}
 \newcommand{\heiti}{\CJKfamily{heiti}}
 \newcommand{\hwxingkai}{\CJKfamily{hwxingkai}}
 
