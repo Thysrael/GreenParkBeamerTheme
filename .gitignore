@@ -32,6 +32,7 @@
 *.swp
 *.thm
 *.pdf
+!example.pdf
 *.fls
 *.xdv
 .DS_Store
