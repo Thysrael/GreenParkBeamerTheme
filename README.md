@@ -23,7 +23,7 @@ Green Park 是北航六系开发的一款非官方的 LaTeX Beamer 中文主题�
 ``` latex
 %%%%%%%%%%%%%%%%%% BEFORE %%%%%%%%%%%%%%%%%%%%%%%%
 \setmainfont{Times New Roman} % 英文字体
-\setCJKmainfont{TsangerJinKai05} % 正文字体
+\setCJKmainfont{LXGW WenKai} % 正文字体
 \setCJKsansfont{Source Han Serif CN} % 标题字体
 % TODO: minted 无法使用指定的等宽字体
 \setCJKmonofont{JetBrainsMono Nerd Font Mono} % 等宽字体
@@ -57,7 +57,7 @@ Green Park 是北航六系开发的一款非官方的 LaTeX Beamer 中文主题�
 ## 依赖
 
 - 构建依赖：`XeLaTeX`
-- 字体依赖：`Times New Roman`，`TsangerJinKai05`，`Source Han Serif CN`，`JetBrainsMono Nerd Font Mono`，`STXingkai`
+- 字体依赖：`Times New Roman`，`LXGW WenKai`，`Source Han Serif CN`，`JetBrainsMono Nerd Font Mono`，`STXingkai`
 - 代码高亮依赖：`pygmentize`（可选）
 
 
